@@ -1,0 +1,31 @@
+﻿services:
+  sampleloadbalancing.api1:
+    image: sampleloadbalancing
+    container_name: sample_load_balancing.api
+    depends_on:
+      - sample_load_balancing.db
+    build:
+      context: .
+      dockerfile: SampleLoadBalancing/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    networks:
+      - sample_load_balancing
+  
+  sample_load_balancing.db:
+    image: postgres:latest
+    container_name: sample_load_balancing.db
+    environment:
+      - POSTGRES_DB=sample_balancer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+        - "5432:5432"
+    networks:
+      - sample_load_balancing
+
+networks:
+  sample_load_balancing:
+    name: sample_load_balancing
+    driver: bridge
