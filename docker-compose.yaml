@@ -27,6 +27,34 @@
       - "4001:8081"
     networks:
       - sample_load_balancing
+        
+  sampleloadbalancing.product.api1:
+    image: sampleloadbalancing.product.api1
+    container_name: sample_load_balancing.product.api1
+    depends_on:
+      - sample_load_balancing.db
+    build:
+      context: .
+      dockerfile: ProductService/Dockerfile
+    ports:
+      - "6000:8080"
+      - "6001:8081"
+    networks:
+      - sample_load_balancing
+  
+  sampleloadbalancing.product.api2:
+    image: sampleloadbalancing.product.api2
+    container_name: sample_load_balancing.product.api2
+    depends_on:
+      - sample_load_balancing.db
+    build:
+      context: .
+      dockerfile: ProductService/Dockerfile
+    ports:
+      - "7000:8080"
+      - "7001:8081"
+    networks:
+      - sample_load_balancing
   
   gateway:
     image: gateway
