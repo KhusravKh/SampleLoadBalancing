@@ -1,7 +1,7 @@
 ﻿services:
   sampleloadbalancing.api1:
     image: sampleloadbalancing
-    container_name: sample_load_balancing.api
+    container_name: sample_load_balancing.api1
     depends_on:
       - sample_load_balancing.db
     build:
@@ -10,6 +10,33 @@
     ports:
       - "5000:8080"
       - "5001:8081"
+    networks:
+      - sample_load_balancing
+    
+  
+  sampleloadbalancing.api2:
+    image: sampleloadbalancing
+    container_name: sample_load_balancing.api2
+    depends_on:
+      - sample_load_balancing.db
+    build:
+      context: .
+      dockerfile: SampleLoadBalancing/Dockerfile
+    ports:
+      - "4000:8080"
+      - "4001:8081"
+    networks:
+      - sample_load_balancing
+  
+  gateway:
+    image: gateway
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    ports:
+      - "1000:8080"
+      - "1001:8081"
     networks:
       - sample_load_balancing
   
