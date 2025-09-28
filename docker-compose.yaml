@@ -1,6 +1,6 @@
 ﻿services:
   sampleloadbalancing.api1:
-    image: sampleloadbalancing
+    image: sampleloadbalancing.api1
     container_name: sample_load_balancing.api1
     depends_on:
       - sample_load_balancing.db
@@ -15,7 +15,7 @@
     
   
   sampleloadbalancing.api2:
-    image: sampleloadbalancing
+    image: sampleloadbalancing.api2
     container_name: sample_load_balancing.api2
     depends_on:
       - sample_load_balancing.db
